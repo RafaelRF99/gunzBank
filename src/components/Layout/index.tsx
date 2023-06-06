@@ -5,7 +5,7 @@ import SendValue from '@/components/SendValue'
 import Post from './Post'
 import Button from '../Button'
 // HOOKS
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 interface ReleasesProps {
     date: string
@@ -28,32 +28,34 @@ export default function Layout() {
     const [displayDown, setDisplayDown] = useState<number>()
     const [total, setTotal] = useState<number>()
 
-    function convert() {
-        if (displayUp && displayDown && displayUp > displayDown) {
-            let soma = +displayUp - -displayDown
-            return setTotal(soma)
-        }
-        if (displayUp && displayDown && displayUp < displayDown) {
-            let sub = +displayDown - -displayUp
-            return setTotal(sub)
-        }
-    }
-
-    function calcUp() {
+    const calcUp = useCallback(() => {
         let total = 0
         for (let i = 0; i < moneyArray.length; i++) {
             total = +moneyArray[i] + +total
         }
         setDisplayUp(+total)
-    }
+    }, [moneyArray])
 
-    function calcDown() {
+    const calcDown = useCallback(() => {
         let total = 0
         for (let i = 0; i < exitArray.length; i++) {
-            total = -exitArray[i] - -total
+            total = +exitArray[i] - -total
         }
-        setDisplayDown(+total)
-    }
+        setDisplayDown(-total)
+    }, [exitArray])
+
+    const convert = useCallback(() => {
+        if (displayUp && displayDown) {
+            let soma = +displayUp - -displayDown
+            setTotal(soma)
+        }
+    }, [displayUp, displayDown])
+
+    useEffect(() => {
+        calcUp()
+        calcDown()
+        convert()
+    }, [price, calcUp, calcDown, convert])
 
     function handleReleases() {
         if (releases.length > 0) {
@@ -86,15 +88,6 @@ export default function Layout() {
             setExitArray(price ? [...exitArray, price] : [])
         }
     }
-
-    useEffect(() => {
-        calcUp()
-        calcDown()
-    }, [price])
-
-    useEffect(() => {
-        convert()
-    }, [displayUp, displayDown])
 
     return (
         <div className={styles.container}>
