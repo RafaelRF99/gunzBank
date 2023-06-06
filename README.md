@@ -1,6 +1,6 @@
-### Projeto GunzBank
+## Projeto GunzBank
 
-### Desenvolvido em NextJS
+## Desenvolvido em NextJS
 
 Instalar dependências
 
