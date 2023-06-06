@@ -1,4 +1,3 @@
-import DropDown from '../DropDown'
 import styles from './SendValue.module.scss'
 
 interface SendValueProps {
