@@ -1,0 +1,65 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    padding: 1rem;
+    gap: 1rem;
+    
+    .render {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        label {
+            font-size: 1.5rem;
+            font-weight: bold;
+
+            margin-bottom: 5px;
+        }
+
+        .teste {
+            border-bottom: 1px solid #000;
+        }
+
+        input {
+            height: 27px;
+            padding: 0 7px;
+
+            border: none;
+            border-bottom: 1px solid #000;
+            background-color: #f8f8f8;
+            outline: none;
+
+            font-size: 1rem;
+
+            &:focus {
+                border-bottom: 2px solid #362d44;
+            }
+        }
+
+        .data {
+            min-width: 100px;
+            
+            text-align: center;
+        }
+
+        .category {
+            width: 150px;
+            text-align: center;
+        }
+
+        .description {
+            padding: 0 1rem;
+        }
+
+        .price {
+            width: 150px;
+        }
+
+    }
+
+    
+
+}
